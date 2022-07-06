@@ -1,0 +1,94 @@
+:host {
+    width: 100% !important;
+    position: relative;
+}
+
+/* table */
+.table-select {
+    margin-top: 1px;
+    margin-left: 4px;
+}
+
+.table-address {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* number of lines to show */
+            line-clamp: 1; 
+    -webkit-box-orient: vertical;
+    width: 200px;
+}
+
+.table-center-column {
+    text-align: center;
+}
+
+.btn-action {
+    min-width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px ;
+}
+
+.table-container {
+    background-color: white;
+    margin: 120px 0 100px 60px;
+    max-width: 1520px;
+    vertical-align: middle;
+    font-size: 16px;
+}
+
+table.beverage-list__table.table-container.table.table-striped.table-hover {
+    max-width: 866px;
+    margin: 24px 0 100px 0px;
+}
+
+.beverage-list__title {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.order-information {
+    margin-left: 60px;
+}
+
+.voucher-title,
+.order-title {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.voucher-field,
+.order-field {
+    display: flex;
+    margin: 24px 0 0 0;
+}
+
+.order {
+    margin-bottom: 32px;
+}
+
+.voucher {
+    border-top: 1px solid white;
+}
+
+.col-name {
+    line-height: 30px;
+}
+
+.btn-sort-asc {
+    margin-top: -3px;
+    margin-bottom: -18px;
+    cursor: pointer;
+}
+
+.btn-sort-desc {
+    margin-bottom: -10px;
+    cursor: pointer;
+}
+
+.btn-sort-asc.disabled,
+.btn-sort-desc.disabled {
+    display: none;
+}

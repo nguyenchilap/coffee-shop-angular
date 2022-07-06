@@ -1,0 +1,57 @@
+<div class="actions">
+    <a [routerLink]="['/employee']" class="btn btn-outline-light btn-back">
+        << Back to employees list
+    </a>
+</div>
+
+<form class="row w-100 create-employee ms-5" (submit)="onSubmitCreateEmployee($event)">
+    <div class="col-5">
+        <div class="image-display mb-3" [ngStyle]="{ 'background-image': 'url(' + imageSrc + ')'}"></div>
+        <input name="employeeImage" (change)="onFileSelected($event)" type="file" accept="image/png, image/gif, image/jpeg" required/>
+
+        <select class="form-select store-select mt-4" aria-label="Default select example" (change)="onSelectStoreChange($event)">
+            <option *ngFor="let store of storeList" value="{{store.storeId}}">{{store.storeName}}</option>
+        </select>
+    </div>
+
+    <div class="col-6">
+        
+        <div class="mb-3">
+            <label for="employeeLoginName" class="form-label">Login name</label>
+            <input [(ngModel)] = "employee.employeeLoginName" type="text" name="employeeLoginName" class="form-control" id="employeeLoginName" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="employeePassword" class="form-label">Password</label>
+            <input [(ngModel)] = "employee.employeePassword" type="password" name="employeePassword" class="form-control" id="employeePassword" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="employeeName" class="form-label">Fullname</label>
+            <input [(ngModel)] = "employee.employeeName" type="text" class="form-control" name="employeeName" id="employeeName" rows="3" required>
+        </div>
+
+        <select class="form-select mt-4 employee-gender-select" aria-label="Default select example" (change)="onSelectGenderChange($event)" required>
+            <option value="1" selected>Male</option>
+            <option value="2">Femail</option>
+            <option value="0">Others</option>
+        </select>
+
+        <select class="form-select mt-4 mb-3 employee-role-select" aria-label="Default select example" (change)="onSelectRoleChange($event)" required>
+            <option value="1">Admin</option>
+            <option value="2" selected>Staff</option>
+        </select>
+
+        <div class="mb-3">
+            <label for="employeeEmail" class="form-label">Email Address</label>
+            <input [(ngModel)] = "employee.employeeEmail" type="email" class="form-control" name="employeeEmail" id="employeeEmail" rows="3" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="employeePhone" class="form-label">Phone Number</label>
+            <input [(ngModel)] = "employee.employeePhone" type="text" class="form-control" name="employeePhone" id="employeePhone" rows="3" required>
+        </div>
+
+        <button type="submit" class="btn btn-success float-end mt-4">Create new employee</button>
+    </div>
+</form>

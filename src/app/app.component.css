@@ -1,0 +1,145 @@
+:host {
+    scroll-behavior: smooth;
+    position: relative;
+}
+
+mat-toolbar {
+    background-color: black;
+    height: 120px;
+    justify-content: space-between;
+}
+
+mat-toolbar .logo{
+    font-size: 32px;
+    font-weight: 700;
+    color: rgb(255, 255, 255);
+}
+
+mat-toolbar .authenticator__sign-in {
+    margin-right: 16px;
+}
+
+mat-toolbar .header-content{
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+mat-sidenav-container{
+    height: calc(100vh - 120px);
+    background-color: #202020;
+    color: white;
+}
+
+mat-sidenav {
+    margin: 16px;
+    width: 200px;
+    border-right: none;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    padding : 16px;
+    text-align: center;
+}
+
+mat-sidenav-content {
+    scroll-behavior: smooth;
+}
+
+.content{
+    height: calc(100vh - 98px);
+    margin: 16px;
+    margin-left: 32px;
+    display: flex;
+    font-size: 18px;
+    border-radius: 16px;
+    width: 100%;
+}
+
+.header-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 86px;
+}
+
+#user-controller {
+    position: relative;
+}
+
+.user-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 50px;
+    transition: ease-in .15s;
+}
+
+.user-button.active {
+    background-color: white;
+    color: black;
+}
+
+.user-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.user-name {
+    font-size: 16px;
+    font-weight: 450;
+    margin-left: 8px;
+}
+
+.user-navigation {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    left: -10px;
+    z-index: 7;
+    background-color: white;
+    border-radius: 6px;
+    animation: userNavigationAppear linear 0.15s;
+    transform-origin: 70% 0%;
+}
+
+.user-navigation.active {
+    display: flex;
+}
+
+.user-navigation a {
+    padding : 8px 0;
+    text-decoration: none;
+    color: rgb(31, 31, 31);
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.user-navigation a:hover {
+    background-color: rgb(83, 83, 83);
+    color: rgb(241, 241, 241);
+}
+
+.user-logout {
+    border-top: 1.2px solid rgb(39, 39, 39);
+}
+
+
+@keyframes userNavigationAppear {
+    from {
+        transform: scale(1%);
+    }
+    to {
+        transform: scale(100%);
+    }
+}

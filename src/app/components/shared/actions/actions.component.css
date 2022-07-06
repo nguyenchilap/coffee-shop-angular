@@ -1,0 +1,43 @@
+.actions{
+    padding: 20px 100px 50px 290px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    top: 120px;
+    right: 17px;
+    z-index: 5;
+    background-color: #202020;
+
+}
+
+.form-check-label{
+    margin-top: 4px;
+}
+
+.action-list {
+    margin-left: 80px;
+}
+
+.form-check {
+    margin-left: 24px;
+}
+
+.pagination-container {
+    display: flex;
+    align-items: center;
+}
+
+.store-select {
+    display: flex;
+    position: fixed;
+    top: 232px;
+    left: 290px;
+    z-index: 1;
+    width: 300px;
+    padding-left: 0;
+}
+
+.store-select-btn {
+    width: 100%;
+}

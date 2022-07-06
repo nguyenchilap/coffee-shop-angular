@@ -1,0 +1,56 @@
+<app-actions [actionCreateText]="actionCreateText" 
+            [actionCreateLink]="actionCreateLink"
+
+            (checkBoxSelectAll)="checkBoxAllHandler($event)"
+            (handleAction)="handleAction($event)"
+
+            (reRenderList)="reRenderVoucherList($event)"
+            [maxPageDisplayed]="2"
+            [itemPerPage]="4"
+            [listenToList]="getVoucherListPromise()">
+</app-actions>
+
+<table class="table-container table table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">ID</th>
+        <th scope="col">Code</th>
+        <th scope="col">Start date</th>
+        <th scope="col"><div>End date</div></th>
+        <th scope="col"><div class="table-center-column">Percentage</div></th>
+        <th scope="col"><div class="table-center-column">Max sale</div></th>
+        <th scope="col"><div class="table-center-column">Least order</div></th>
+        <th scope="col"><div class="table-center-column">Limit</div></th>
+        <th *ngIf="currentUser.employeeRole === 1"><div style="text-align: center;">Actions</div></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let voucher of voucherList">
+        <td>
+          <input #checkbox [(ngModel)] = "voucher.isSelected" style="cursor: pointer;" class="form-check-input voucher-select" type="checkbox" value="" id="flexCheckDefault" (change)="onCheckBoxChange()">
+        </td>
+        <td><div class="table-id">{{voucher.voucherId}}</div></td>
+        <td><div class="table-name">{{voucher.voucherCode}}</div></td>
+        <td><div class="table-date">{{voucher.voucherStartDate}}</div></td>
+        <td><div class="table-date">{{voucher.voucherEndDate}}</div></td>
+        <td><div class="table-center-column">{{voucher.voucherPercentage * 100}} %</div></td>
+        <td><div class="table-center-column">{{voucher.voucherMax}}</div></td>
+        <td><div class="table-center-column">{{voucher.voucherMinOrder}}</div></td>
+        <td><div class="table-center-column">{{voucher.voucherLimit}}</div></td>
+
+  
+        <td *ngIf="currentUser.employeeRole === 1">
+          <div class="d-flex justify-content-around">
+            <a (click)="openEditModal(voucher)" class="btn btn-warning btn-action"><mat-icon>edit</mat-icon></a>
+            <div class="btn btn-danger btn-action" (click)="onClickBtnDelete(voucher)"><mat-icon>delete_outline</mat-icon></div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+
+

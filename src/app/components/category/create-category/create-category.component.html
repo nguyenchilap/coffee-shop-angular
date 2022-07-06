@@ -1,0 +1,41 @@
+<div class="actions">
+    <a class="btn btn-outline-light btn-back" [routerLink]="['/category']">
+        << Back to categories list
+    </a>
+</div>
+
+<form class="row w-100 create-category ms-5" (submit)="onSubmitCreateCategory($event)">
+    <div class="col-5">
+        <div class="image-display mb-3" [ngStyle]="{ 'background-image': 'url(' + imageSrc + ')'}"></div>
+        <input name="employeeImage" (change)="onFileSelected($event)" type="file" accept="image/png, image/gif, image/jpeg" required/>
+
+        <select class="form-select store-select mt-4" aria-label="Default select example" (change)="onSelectStoreChange($event)">
+            <option *ngFor="let store of storeList" value="{{store.storeId}}">{{store.storeName}}</option>
+        </select>
+    </div>
+
+    <div class="col-6">
+        <div class="mb-3">
+            <label for="loginName" class="form-label">Beverage name</label>
+            <input [(ngModel)] = "category.categoryName" type="text" name="categoryName" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="beveragePrice_s" class="form-label">Size S - Price</label>
+            <input [(ngModel)] = "sizeList[0].beveragePrice" type="number" min="10000" max="1000000" step="2000" name="beveragePrice_s" class="form-control" id="beveragePrice_s">
+        </div>
+
+        <div class="mb-3">
+            <label for="beveragePrice_m" class="form-label">Size M - Price</label>
+            <input [(ngModel)] = "sizeList[1].beveragePrice" type="number" min="10000" max="1000000" step="2000" name="beveragePrice_m" class="form-control" id="beveragePrice_m">
+        </div>
+
+        <div class="mb-3">
+            <label for="beveragePrice_l" class="form-label">Size L - Price</label>
+            <input [(ngModel)] = "sizeList[2].beveragePrice" type="number" min="10000" max="1000000" step="2000" name="beveragePrice_l" class="form-control" id="beveragePrice_l">
+        </div>
+        
+
+        <button type="submit" class="btn btn-success float-end mt-4">Create new beverage</button>
+    </div>
+</form>

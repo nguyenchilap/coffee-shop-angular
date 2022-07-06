@@ -1,0 +1,187 @@
+<app-actions [actionCreateText]="actionCreateText" 
+            [actionCreateLink]="actionCreateLink"
+
+            (checkBoxSelectAll)="checkBoxAllHandler($event)"
+            (handleAction)="handleAction($event)"
+
+            (reRenderList)="reRenderOrderList($event)"
+            [maxPageDisplayed]="2"
+            [itemPerPage]="4"
+            [listenToList]="getOrderListPromise()">
+</app-actions>
+
+
+<table class="table-container table table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col"> 
+          <div class="d-flex justify-content-between" sortField="orderId">
+            <span class="col-name">ID</span>
+            <div class="btn-sort d-flex flex-column" (click)="onSortClicked($event)">
+              <span class="btn-sort-asc">
+                <mat-icon>arrow_drop_up</mat-icon>
+              </span>
+              <span class="btn-sort-desc">
+                <mat-icon>arrow_drop_down</mat-icon>
+              </span>
+            </div>
+          </div> 
+        </th>
+        <th scope="col"> 
+          <div class="d-flex justify-content-between" sortField="orderDate">
+            <span class="col-name">Date</span>
+            <div class="btn-sort d-flex flex-column" (click)="onSortClicked($event)">
+              <span class="btn-sort-asc">
+                <mat-icon>arrow_drop_up</mat-icon>
+              </span>
+              <span class="btn-sort-desc">
+                <mat-icon>arrow_drop_down</mat-icon>
+              </span>
+            </div>
+          </div>
+        </th>
+        <th scope="col"> Address </th>
+        <th scope="col"><div> Note </div></th>
+        <th scope="col">
+          <div class="d-flex justify-content-between" sortField="orderTotal">
+            <span class="col-name">Total</span>
+            <div class="btn-sort d-flex flex-column" (click)="onSortClicked($event)">
+              <span class="btn-sort-asc">
+                <mat-icon>arrow_drop_up</mat-icon>
+              </span>
+              <span class="btn-sort-desc">
+                <mat-icon>arrow_drop_down</mat-icon>
+              </span>
+            </div>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="d-flex justify-content-between" sortField="orderFinalTotal">
+            <span class="col-name">Final Total</span>
+            <div class="btn-sort d-flex flex-column" (click)="onSortClicked($event)">
+              <span class="btn-sort-asc">
+                <mat-icon>arrow_drop_up</mat-icon>
+              </span>
+              <span class="btn-sort-desc">
+                <mat-icon>arrow_drop_down</mat-icon>
+              </span>
+            </div>
+          </div>
+        </th>
+        <th scope="col"><div class="table-center-column">Voucher ID</div></th>
+
+        <th><div style="text-align: center;">Actions</div></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orderList">
+        <td>
+          <input #checkbox [(ngModel)] = "order.isSelected" style="cursor: pointer;" class="form-check-input voucher-select" type="checkbox" value="" id="flexCheckDefault" (change)="onCheckBoxChange()">
+        </td>
+        <td><div class="table-id">{{order.orderId}}</div></td>
+        <td><div class="table-name">{{order.orderDate}}</div></td>
+        <td><div class="table-address">{{order.orderAddress}}</div></td>
+        <td><div class="table-address">{{order.orderNote}}</div></td>
+        <td><div class="table-center-column">{{order.orderTotal}}</div></td>
+        <td><div class="table-center-column">{{order.orderFinalTotal}}</div></td>
+        <td><div class="table-center-column">{{order.voucherId}}</div></td>
+
+  
+        <td>
+          <div class="d-flex justify-content-around">
+            <div class="btn btn-success btn-action" (click)="onClickBtnDetails(order)"><mat-icon> list_alt</mat-icon> </div>
+            <div *ngIf="currentUser.employeeRole === 1" class="btn btn-danger btn-action" (click)="onClickBtnDelete(order)"><mat-icon>delete_outline</mat-icon></div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+<div id="order-details" class="row d-flex justify-content-between" *ngIf="orderDetails">
+  <div class="col-4 order-information">
+    <div class="order-title"> Order Information </div>
+    <div class="order">
+      <div class="order-id order-field">
+        <div class="me-4">Order ID :</div> 
+        <div>{{orderDetails.orderId}} </div>
+      </div>
+      <div class="order-date order-field">
+        <div class="me-4">Date :</div> 
+        <div>{{orderDetails.orderDate}}</div>
+      </div>
+      <div class="order-address order-field">
+        <div class="me-4">Address :</div> 
+        <div>{{orderDetails.orderAddress}}</div>
+      </div>
+      <div class="order-note order-field">
+        <div class="me-4">Note :</div> 
+        <div>{{orderDetails.orderNote}}</div>
+      </div>
+    </div>
+    
+    <div class="voucher">
+      <div class="voucher-title mt-4 mb-3"> Voucher </div>
+      <div *ngIf="orderDetails.voucher" class="voucher-code voucher-field"> 
+        <div class="me-4">Voucher Code :</div> 
+        <div> {{orderDetails.voucher.voucherCode}} </div> 
+      </div>
+      <div *ngIf="orderDetails.voucher" class="voucher-percentage voucher-field"> 
+        <div class="me-4">Voucher Value :</div> 
+        <div> {{orderDetails.voucher.voucherPercentage * 100}} %  </div> 
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-7 beverage-list">
+    <div class="beverage-list__title"> Beverages </div>
+
+    <table class="beverage-list__table table-container table table-striped table-hover">
+      <thead>
+
+        <tr>
+          <th scope="col"> ID </th>
+          <th scope="col"> Name </th>
+          <th scope="col"> <div class="table-center-column">Size</div> </th>
+          <th scope="col"><div class="table-center-column">Quantity</div></th>
+          <th scope="col"><div class="table-center-column">Price</div></th>
+        </tr>
+
+      </thead>
+      <tbody>
+
+        <tr *ngFor="let orderBeverage of orderDetails.orderBeverages">
+          <td><div class="table-id">{{orderBeverage.beverage.beverageId}}</div></td>
+          <td><div class="table-name">{{orderBeverage.beverage.category.categoryName}}</div></td>
+  
+          <td *ngIf="orderBeverage.beverage.beverageSize == 1"><div class="table-center-column">Small</div></td>
+          <td *ngIf="orderBeverage.beverage.beverageSize == 2"><div class="table-center-column">Medium</div></td>
+          <td *ngIf="orderBeverage.beverage.beverageSize == 3"><div class="table-center-column">Large</div></td>
+  
+          <td><div class="table-center-column">{{orderBeverage.quantity}}</div></td>
+          <td><div class="table-center-column">{{orderBeverage.beverage.beveragePrice}}</div></td>
+        </tr>
+
+        <tr>
+          <td scope="col"> <div style="font-weight: 600;">Total</div> </td>
+          <td scope="col"> </td>
+          <td scope="col"> </td>
+          <td scope="col"> </td>
+          <td scope="col"> <div class="table-center-column">{{orderDetails.orderTotal}}</div> </td>
+        </tr>
+
+        <tr>
+          <td scope="col"> <div style="font-weight: 600;"> Final Total</div> </td>
+          <td scope="col"> </td>
+          <td scope="col"> </td>
+          <td scope="col"> </td>
+          <td scope="col"> <div class="table-center-column">{{orderDetails.orderFinalTotal}}</div> </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>

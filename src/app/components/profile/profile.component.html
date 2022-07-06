@@ -1,0 +1,48 @@
+<div class="container">
+
+    <div class="row mt-5">
+
+        <div class="col-4 d-flex align-items-center flex-column">
+            <div class="image-display mb-3" [ngStyle]="{ 'background-image': 'url(' + imageSrc + ')'}">
+                <div class="image-icon-btn" (click)="onImageIconBtnClick()"> <mat-icon>camera_alt</mat-icon> </div>
+            </div>
+            <input style="display: none;" id="btn-choose-image" name="employeeImage" (change)="onFileSelected($event)" type="file" accept="image/png, image/gif, image/jpeg" required/>
+        </div>
+
+        <div class="col-6 ms-5">
+
+            <div class="mb-3">
+                <label for="loginName" class="form-label">Login name : {{employee.employeeLoginName}}</label>
+            </div>
+            
+            <div class="mb-3">
+                <label for="name" class="form-label">Fullname</label>
+                <input [(ngModel)] = "employee.employeeName" type="text" class="form-control" name="employeeName" id="name" rows="3" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="gender" class="form-label">Gender</label>
+                <select id="gender" [(ngModel)] = "employee.employeeGender" class="form-select employee-gender-select mb-3" aria-label="Default select example" (change)="onSelectGenderChange($event)" required>
+                    <option value="1">Male</option>
+                    <option value="2">Femail</option>
+                    <option value="0">Others</option>
+                </select>
+            </div>
+    
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input [(ngModel)] = "employee.employeeEmail" type="email" class="form-control" name="employeeEmail" id="email" rows="3" required>
+            </div>
+    
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input [(ngModel)] = "employee.employeePhone" type="text" class="form-control" name="employeePhone" id="phone" rows="3" required>
+            </div>
+    
+            <button type="submit" class="btn btn-success float-end mt-4" (click)="onSubmitEditEmployee()">Edit profile</button>
+
+        </div>
+
+    </div>
+
+</div>

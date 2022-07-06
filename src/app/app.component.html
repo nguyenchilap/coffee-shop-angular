@@ -1,0 +1,38 @@
+<mat-toolbar>
+    <div class="header-content">
+        <div class="logo" routerLink="/" style="cursor: pointer;">THE COFFEE HOUSE</div>
+        
+        <div class="authenticator">
+            
+            <div id="user-controller" *ngIf="authService.token; else signInButton">
+                <div class="user-button" (click)="onUserButtonClick($event)">
+                    <div class="user-image" style="background-image: url('{{currentUser.employeeImage}}');"></div>
+                    <div class="user-name"> {{currentUser.employeeName}} </div>
+                </div>
+                <div class="user-navigation">
+                    <a class="user-profile" [routerLink]="['profile']">Profile</a>
+                    <a class="user-logout" (click)="onLogout()">Log out</a>
+                </div>
+            </div>
+
+            <ng-template #signInButton>
+                <a  routerLink="login" class="btn btn-outline-light authenticator__sign-in">
+                    Sign in
+                </a>
+            </ng-template>
+    
+        </div>
+    </div>
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav mode="side" opened *ngIf="authService.token">
+        <app-nav-item></app-nav-item>
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

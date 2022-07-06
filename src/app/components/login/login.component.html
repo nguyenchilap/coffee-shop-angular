@@ -1,0 +1,19 @@
+<form class="login-form" (submit)="onLoginSubmit()">
+    <div class="login-form__header">
+        LOGIN
+    </div>
+
+    <div class="mb-3">
+        <label for="employeeLoginName" class="form-label">Username</label>
+        <input [(ngModel)]="employee.employeeLoginName" type="text" class="form-control" id="employeeLoginName" name="employeeLoginName" required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="employeePassword" class="form-label">Password</label>
+        <input [(ngModel)]="employee.employeePassword" type="password" class="form-control" id="employeePassword" name="employeePassword" required>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">SUBMIT</button>
+</form>
+
+

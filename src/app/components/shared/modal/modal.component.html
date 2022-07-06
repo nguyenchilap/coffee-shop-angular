@@ -1,0 +1,43 @@
+<div class="dialog-header mb-4">
+    <div class="dialog-header__title">
+        {{data.modal.modalTitle}}
+    </div>
+
+    <div class="dialog-close" mat-dialog-close>
+        <mat-icon style="font-size: 32px;">close</mat-icon>
+    </div>
+</div>
+
+<form #editForm = 'ngForm' (ngSubmit)="onSubmitEdit(editForm)">
+    <mat-dialog-content>
+
+        <div class="mb-3" *ngFor="let inputForm of data.modal.modalInput">
+
+            <div *ngIf="inputForm.inputDisplay == 'none'; else input_display_block">
+                <input type="{{inputForm.inputType}}" name="{{inputForm.inputName}}" id="{{inputForm.inputId}}" ngModel="{{inputForm.inputValue}}" style="display: none;">
+            </div>
+
+            <ng-template #input_display_block>
+                
+                <div *ngIf="inputForm.inputType == 'image'; else input_normal" class="d-flex align-items-center">
+                    <div class="image-display mb-3 me-3" [ngStyle]="{ 'background-image': 'url(' + imageSrc + ')'}"></div>
+                    <input (change)="onFileSelected($event)" type="file" accept="image/png, image/gif, image/jpeg"/>
+                    <input name="{{inputForm.inputName}}" type="text" style="display: none;" ngModel="{{inputForm.inputValue}}"/>
+                </div>
+        
+                <ng-template #input_normal>
+                    <label for="{{inputForm.inputId}}" class="form-label">{{inputForm.inputLabel}}</label>
+                    <input type="{{inputForm.inputType}}" name="{{inputForm.inputName}}" class="form-control dialog-input" id="{{inputForm.inputId}}" ngModel="{{inputForm.inputValue}}">
+                </ng-template>
+
+            </ng-template>
+
+        </div>
+
+    </mat-dialog-content>
+    
+    <mat-dialog-actions class="d-flex">
+        <button class= "btn btn-secondary ms-auto" mat-dialog-close>Close</button>
+        <button class= "btn btn-success ms-3" type="submit">Edit</button>
+    </mat-dialog-actions>
+</form>

@@ -1,0 +1,61 @@
+.dialog {
+    min-width: 500px;
+    min-height: 300px;
+    font-size: 16px;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.dialog.active {
+    display: flex;
+}
+
+.dialog-header{
+    font-size: 24px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid;
+    min-width: 300px;
+}
+
+.dialog-close {
+    margin-top: -10px;
+    cursor: pointer;
+}
+
+.dialog-close:hover {
+    color: #db5151;
+}
+
+.dialog-body{
+    padding : 0 28px;
+}
+
+.image-display {
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+    background-color: #383838;
+    border-radius: 10px;
+}
+
+.dialog-input {
+    min-width: 450px;
+}
+
+.dialog-footer{
+    display: flex;
+    justify-content: flex-end;
+    padding: 14px 28px 24px;
+    border-top: 1px solid;
+}
+
+mat-dialog-content.mat-dialog-content {
+    max-height: 380px;
+    overflow-y: auto;
+}

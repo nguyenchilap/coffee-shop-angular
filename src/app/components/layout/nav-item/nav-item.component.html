@@ -1,0 +1,11 @@
+<nav *ngFor="let nav of navList">
+    <a class="nav-item-container nav-button" routerLinkActive="active" routerLink= {{nav.navRouterLink}} id="{{nav.navRouterLink}}">
+        <div class="nav-icon">
+            <mat-icon>{{nav.navIcon}}</mat-icon>
+        </div>
+    
+        <div class="nav-title">
+            {{nav.navTitle}}
+        </div>
+    </a>
+</nav>

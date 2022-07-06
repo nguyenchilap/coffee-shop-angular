@@ -1,0 +1,19 @@
+:host{
+    display: flex;
+    width: 100%;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    min-width: 500px;
+    margin: 160px auto 0;
+}
+
+.login-form__header {
+    font-size: 36px;
+    font-weight: 500;
+    margin: 0 auto 40px;
+    padding: 0 32px 20px;
+    border-bottom: 1px solid white;
+}

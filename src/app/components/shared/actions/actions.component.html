@@ -1,0 +1,69 @@
+<div class="actions">
+    <a *ngIf="currentUser.employeeRole === 1" [routerLink]="[actionCreateLink]" class="btn btn-outline-light action-create d-flex align-items-center">
+        <div style="margin: 5px 6px 0 0"><mat-icon>add_circle_outline</mat-icon> </div>
+        <span>{{actionCreateText}}</span>
+    </a>
+    <div class="dropdown action-list">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Handle Actions
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li *ngIf="currentUser.employeeRole === 1"><div class="dropdown-item" style="cursor: pointer;" (click)="onActionClicked($event)" >Delete</div></li>
+            <li *ngFor="let additionalAction of additionalActions">
+                <div class="dropdown-item" style="cursor: pointer;" (click)="onActionClicked($event)" >{{additionalAction}}</div>
+            </li>
+        </ul>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input action-select-all" type="checkbox" id="flexCheckDefault" 
+                                                            (change)="onCheckBoxSellectAll()" 
+                                                            [(ngModel)]="checkBoxAllIsSelected" 
+                                                            >
+        <label class="form-check-label" for="flexCheckDefault">
+            Select All
+        </label>
+    </div>
+
+    <div class="store-select" *ngIf="haveFilterBar">
+        <select class="form-select" aria-label="Default select example" (change)="onSelectStoreChange($event)">
+            <option selected value="0">All store</option>
+            <option *ngFor="let store of storeList" value="{{store.storeId}}">{{store.storeName}}</option>
+        </select>
+        <div class="btn btn-success ms-3" (click) = "onFilterListByStoreId()">Filter</div>
+    </div>
+
+
+    <!-- Pagination -->
+    <div class="number-of-item-select ms-auto">
+        <select style="cursor: pointer;" class="form-select" aria-label="Default select example" (change)="onSelectNumberOfItemPerPage($event)">
+          <option selected value="0">Select Items per page</option>
+          <option value="2">2</option>
+          <option value="4">4</option>
+          <option value="8">8</option>
+          <option value="16">16</option>
+        </select>
+    </div>
+
+    <div class="pagination-container ms-4">
+        <div class="btn d-flex align-center justify-content-center" (click)="onPrevPageClick()"
+            *ngIf="numberOfPage > maxPageDisplayed">
+            <mat-icon style="color: white; font-size: 30px;">keyboard_arrow_left</mat-icon>
+        </div>
+
+        <button id="page-{{number}}" class="btn btn-outline-light me-1 ms-1 btn-page-number" *ngFor="let i = index; let number of ListNumberOfPageDisplayed" 
+                (click)="onGetItemsInCurrentPage($event, number)">
+            {{number}}
+        </button>
+        
+        <div *ngIf="numberOfPage > maxPageDisplayed && currentStartPageDisplayed < (ListNumberOfPage.length - maxPageDisplayed)" class="btn btn-outline-light me-1 ms-1"
+            (click) = "onNextPageClick()">
+            ...
+        </div>
+
+        <div class="btn d-flex align-center justify-content-center" (click)="onNextPageClick()"
+            *ngIf="numberOfPage > maxPageDisplayed">
+            <mat-icon style="color: white; font-size: 30px;">keyboard_arrow_right</mat-icon>
+        </div>
+    </div>
+</div>
+

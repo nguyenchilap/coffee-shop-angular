@@ -1,0 +1,26 @@
+<div class="actions">
+    <a [routerLink]= "['/store']" class="btn btn-outline-light btn-back">
+        << Back to courses list
+    </a>
+</div>
+
+<form class="row w-100 create-store ms-5" (submit)="onSubmitCreateStore($event)">
+    <div class="col-5">
+        <div class="image-display mb-3" [ngStyle]="{ 'background-image': 'url(' + imageSrc + ')'}"></div>
+        <input name="storeImage" (change)="onFileSelected($event)" type="file" accept="image/png, image/gif, image/jpeg" required/>
+    </div>
+
+    <div class="col-6">
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Store Name</label>
+            <input [(ngModel)] = "store.storeName" type="text" name="storeName" class="form-control" id="exampleFormControlInput1" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Store Address</label>
+            <textarea [(ngModel)] = "store.storeAddress" class="form-control" name="storeAddress" id="exampleFormControlTextarea1" rows="3" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success float-end mt-5">Create new store</button>
+    </div>
+</form>

@@ -1,0 +1,59 @@
+:host {
+    width: 100%;
+}
+
+.image-display {
+    width: 400px;
+    height: 400px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+    background-color: #383838;
+    border-radius: 50%;
+    position: relative;
+}
+
+.image-display::after {
+    content: '';
+    width: 400px;
+    height: 400px;
+    background-color: #3b3b3b67;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    transition: ease-in 0.3s;
+}
+
+.image-display:hover .image-icon-btn {
+    display: block;
+    animation: appear ease-in 0.3s;
+}
+
+.image-display:hover::after  {
+    display: block;    
+}
+
+.image-icon-btn {
+    position: absolute;
+    left: 12%;
+    top: 16%;
+    display: none;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.image-icon-btn mat-icon {
+    font-size: 300px;
+    color: rgb(255, 255, 255);
+}
+
+@keyframes appear {
+    from {
+        opacity: 0.3;
+    }  
+    to {
+        opacity: 1;
+    }  
+}

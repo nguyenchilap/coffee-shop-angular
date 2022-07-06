@@ -1,0 +1,94 @@
+<app-actions [actionCreateText]="actionCreateText" 
+            [actionCreateLink]="actionCreateLink"
+
+            (checkBoxSelectAll)="checkBoxAllHandler($event)"
+            (handleAction)="handleAction($event)"
+
+            (reRenderList)="reRenderStoreList($event)"
+            [maxPageDisplayed]="3"
+            [itemPerPage]="4"
+            [listenToList]="getStoreListPromise()"
+            >
+</app-actions>
+
+<table class="table-container table table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">
+        <div class="d-flex justify-content-between" sortField="storeId">
+          <span class="col-name">ID</span>
+          <div class="btn-sort d-flex flex-column" (click)="onSortClicked($event)">
+            <span class="btn-sort-asc">
+              <mat-icon>arrow_drop_up</mat-icon>
+            </span>
+            <span class="btn-sort-desc">
+              <mat-icon>arrow_drop_down</mat-icon>
+            </span>
+          </div>
+        </div>
+      </th>
+      <th scope="col">
+        <div class="d-flex justify-content-between" sortField="storeName">
+          <span class="col-name">Name</span>
+          <div class="btn-sort d-flex flex-column" (click)="onSortClicked($event)">
+            <span class="btn-sort-asc">
+              <mat-icon>arrow_drop_up</mat-icon>
+            </span>
+            <span class="btn-sort-desc">
+              <mat-icon>arrow_drop_down</mat-icon>
+            </span>
+          </div>
+        </div>
+      </th>
+      <th scope="col">Image</th>
+      <th scope="col">Address</th>
+      <th scope="col">
+        <div class="d-flex justify-content-between" sortField="storeId">
+          <span class="col-name">Employees</span>
+          <div class="btn-sort d-flex flex-column" (click)="onSortClicked($event)">
+            <span class="btn-sort-asc">
+              <mat-icon>arrow_drop_up</mat-icon>
+            </span>
+            <span class="btn-sort-desc">
+              <mat-icon>arrow_drop_down</mat-icon>
+            </span>
+          </div>
+        </div>
+      </th>
+      <th scope="col"><div class="table-center-column">
+        <div class="d-flex justify-content-between" sortField="storeId">
+          <span class="col-name">Categories</span>
+          <div class="btn-sort d-flex flex-column" (click)="onSortClicked($event)">
+            <span class="btn-sort-asc">
+              <mat-icon>arrow_drop_up</mat-icon>
+            </span>
+            <span class="btn-sort-desc">
+              <mat-icon>arrow_drop_down</mat-icon>
+            </span>
+          </div>
+        </div>
+      </div></th>
+      <th *ngIf="currentUser.employeeRole === 1"><div style="text-align: center;">Actions</div></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let store of storeList">
+      <td>
+        <input #checkbox [(ngModel)] = "store.isSelected" style="cursor: pointer;" class="form-check-input store-select" type="checkbox" value="" id="flexCheckDefault" (change)="onCheckBoxChange()">
+      </td>
+      <td><div class="table-id">{{store.storeId}}</div></td>
+      <td><div class="table-name">{{store.storeName}}</div></td>
+      <td><div class="table-image" style="background-image: url('{{store.storeImage}}') ;"> </div></td>
+      <td><div class="table-address">{{store.storeAddress}}</div></td>
+      <td><div class="table-center-column text-align-center">{{store.employeeList.length}}</div></td>
+      <td><div class="table-center-column">{{store.categoryList.length}}</div></td>
+      <td *ngIf="currentUser.employeeRole === 1">
+        <div class="d-flex justify-content-around">
+          <button (click)="openEditModal(store)" class="btn btn-warning btn-action"><mat-icon>edit</mat-icon></button>
+          <div class="btn btn-danger btn-action" (click)="onClickBtnDelete(store)"><mat-icon>delete_outline</mat-icon></div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

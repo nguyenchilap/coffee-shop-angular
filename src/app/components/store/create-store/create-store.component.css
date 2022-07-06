@@ -1,0 +1,29 @@
+:host {
+    width: 100%;
+}
+
+.actions {
+    padding: 20px 290px 20px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    right: 17px;
+    z-index: 1;
+    background-color: #202020;
+}
+
+.create-store {
+    margin-top: 160px;
+}
+
+.image-display {
+    width: 90%;
+    height: 400px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+    background-color: #383838;
+    border-radius: 10px;
+}
+

@@ -1,0 +1,48 @@
+<div class="actions">
+    <a class="btn btn-outline-light btn-back" [routerLink]="['/voucher']">
+        << Back to vouchers list
+    </a>
+</div>
+
+<form class="row w-100 create-voucher ms-5" (submit)="onSubmitCreateVoucher($event)">
+    <div class="col-4">
+        <div class="mb-3">
+            <label for="voucherCode" class="form-label">Voucher Code</label>
+            <input [(ngModel)] = "voucher.voucherCode" type="text" name="voucherCode" class="form-control" id="voucherCode" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="voucherStartDate" class="form-label">Start date</label>
+            <input [(ngModel)] = "voucher.voucherStartDate" type="date" name="voucherStartDate" class="form-control" id="voucherStartDate" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="voucherEndDate" class="form-label">End date</label>
+            <input [(ngModel)] = "voucher.voucherEndDate" type="date" name="voucherEndDate" class="form-control" id="voucherEndDate" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="voucherLimit" class="form-label">Number of voucher</label>
+            <input [(ngModel)] = "voucher.voucherLimit" type="number" name="voucherLimit" class="form-control" id="voucherLimit" required>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="mb-3">
+            <label for="voucherPercentage" class="form-label">Voucher value</label>
+            <input [(ngModel)] = "voucher.voucherPercentage" type="number" name="voucherPercentage" class="form-control" id="voucherPercentage" required (keypress)="allowFloat($event)">
+        </div>
+
+        <div class="mb-3">
+            <label for="voucherMinOrder" class="form-label">Min order to get this voucher</label>
+            <input [(ngModel)] = "voucher.voucherMinOrder" type="number" name="voucherMinOrder" class="form-control" id="voucherMinOrder" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="voucherMax" class="form-label">Max sale</label>
+            <input [(ngModel)] = "voucher.voucherMax" type="number" name="voucherMax" class="form-control" id="voucherMax" required>
+        </div>
+
+        <button type="submit" class="btn btn-success float-end mt-4">Create new voucher</button>
+    </div>
+</form>
+

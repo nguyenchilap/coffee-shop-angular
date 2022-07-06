@@ -1,0 +1,28 @@
+
+.nav-button:first-child {
+    margin-top: 36px;
+}
+
+.nav-button {
+    display: flex;
+    width: 100%;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+    align-items: center;
+    padding: 18px 0 18px 24px;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: linear .2s;
+}
+
+.nav-button.active,
+.nav-button:hover {
+    color: black;
+    background-color: white;
+}
+
+.nav-title {
+    margin-left: 8px;
+}

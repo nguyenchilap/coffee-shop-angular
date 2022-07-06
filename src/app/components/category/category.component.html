@@ -1,0 +1,171 @@
+<app-actions [actionCreateText]="actionCreateText" 
+            [actionCreateLink]="actionCreateLink"
+            [additionalActions]="additionalActions"
+
+            (checkBoxSelectAll)="checkBoxAllHandler($event)"
+            (handleAction)="handleAction($event)"
+            
+            (reRenderList)="reRenderCategoryList($event)"
+            [maxPageDisplayed]="2"
+            [itemPerPage]="4"
+            [listenToList]="getCategoryListPromise()"
+
+            [haveFilterBar]= true
+            (selectStore)="storeSelected($event)">
+</app-actions>
+
+<table class="table-container table table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">
+        <div class="d-flex justify-content-between" sortField="categoryId">
+          <span class="col-name">ID</span>
+          <div class="btn-sort d-flex flex-column" (click)="onSortClicked($event)">
+            <span class="btn-sort-asc">
+              <mat-icon>arrow_drop_up</mat-icon>
+            </span>
+            <span class="btn-sort-desc">
+              <mat-icon>arrow_drop_down</mat-icon>
+            </span>
+          </div>
+        </div>
+      </th>
+      <th scope="col">
+        <div class="d-flex justify-content-between" sortField="categoryName">
+          <span class="col-name">Name</span>
+          <div class="btn-sort d-flex flex-column" (click)="onSortClicked($event)">
+            <span class="btn-sort-asc">
+              <mat-icon>arrow_drop_up</mat-icon>
+            </span>
+            <span class="btn-sort-desc">
+              <mat-icon>arrow_drop_down</mat-icon>
+            </span>
+          </div>
+        </div>
+      </th>
+      <th scope="col">Store ID</th>
+      <th scope="col">Image</th>
+      <th scope="col">Size S</th>
+      <th scope="col">Size M</th>
+      <th scope="col">Size L</th>
+      <th *ngIf="currentUser.employeeRole === 1"><div style="text-align: center;">Actions</div></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let category of categoryList">
+      <td>
+        <input [(ngModel)] = "category.isSelected" style="cursor: pointer;" class="form-check-input category-select" type="checkbox" (change)="onCheckBoxChange()">
+      </td>
+      <td><div class="table-id">{{category.categoryId}}</div></td>
+      <td><div class="table-name">{{category.categoryName}}</div></td>
+      <td><div class="table-name">{{category.storeId}}</div></td>
+      <td><div class="table-image" style="background-image: url('{{category.categoryImage}}') ;"> </div></td>
+
+      <td *ngFor="let beverage of category.beverageList">
+        <input *ngIf="beverage.beveragePrice > 0" [(ngModel)] = "beverage.isSelected" style="cursor: pointer;" class="form-check-input beverage-select" type="checkbox" (change)="onBeverageChecBoxChange(beverage)">
+        <span> {{beverage.beveragePrice}} </span>  
+      </td>
+
+      <td *ngIf="currentUser.employeeRole === 1">
+        <div class="d-flex justify-content-around table-actions">
+          <a (click)="openEditModal(category)" class="btn btn-warning btn-action"><mat-icon>edit</mat-icon></a>
+          <div class="btn btn-danger btn-action" (click)="onClickBtnDelete(category)"><mat-icon>delete_outline</mat-icon></div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<!-- ORDER  -->
+<div id="order-creator" class="order-creator-wrapper row">
+
+  <div class="order-creator col-6">
+
+    <div class="order-content">
+      <div class="order-header mb-5 d-flex justify-content-between">
+        <h5 class="order-title">Create Order</h5>
+        <button class="btn btn-danger btn-reset-order" (click)="onResetOrder()">Reset Order</button>
+      </div>
+      <div class="order-body mt-3">
+
+        <div class="mb-3">
+          <label for="orderAddress" class="form-label">Address</label>
+          <input [(ngModel)] = "order.orderAddress" type="text" name="orderAddress" class="form-control" id="orderAddress" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="orderDate" class="form-label">Date</label>
+          <input [(ngModel)] = "order.orderDate" type="date" name="orderDate" class="form-control" id="orderDate" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="orderNote" class="form-label">Note</label>
+          <textarea [(ngModel)] = "order.orderNote" type="date" name="orderNote" class="form-control" id="orderNote"> 
+          </textarea>
+        </div>
+
+        <div class="mt-5 d-flex justify-content-between align-items-center">
+
+          <div>
+            <label for="orderTotal" style="font-size: 20px;"> Total: </label>
+            <input [(ngModel)] = "order.orderTotal" name="orderTotal" id="orderTotal" class="ms-4 order-total disabled" disabled>
+          </div>
+
+          <div class="order-voucher-wrapper d-flex" *ngIf="voucher; else btn_add_voucher">
+            <button class="btn btn-success btn-re-get-voucher me-3" (click)="onGetVoucherClick(order)">
+              <mat-icon>redo</mat-icon>
+            </button>
+            <div class="order-voucher">
+              <div class="voucher-id me-4">{{voucher.voucherId}}.</div>
+              <div class="voucher-code me-4">{{voucher.voucherCode}}</div>
+              <div class="voucher-percentage">{{voucher.voucherPercentage * 100}} %</div>
+            </div>
+          </div>
+          
+          <ng-template #btn_add_voucher>
+            <button class="btn btn-outline-light" (click)="onGetVoucherClick(order)">Add voucher</button>
+          </ng-template>
+
+        </div>
+
+        <div class="mt-5 mb-5 d-flex justify-content-between align-items-center">
+          <div>
+            <label for="orderFinalTotal" style="font-size: 20px;"> Final total: </label>
+            <input [(ngModel)] = "order.orderFinalTotal" name="orderFinalTotal" id="orderFinalTotal" class="ms-4 order-final-total disabled" disabled>
+          </div>
+          <button class="btn btn-success" (click)="onCreateOrder()">Create order</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ORDER PRODUCTS -->
+  <div class="order-beverages col-6">
+
+    <div class="beverage-item d-flex align-items-center mb-3" *ngFor="let orderBeverage of orderBeverageList">
+      <input (change)="onQuantityChange(orderBeverage)" [(ngModel)] = "orderBeverage.quantity" class="me-3" name="quantity" id="quantity" type="number" min="1"/>
+
+      <div class="beverage-body">
+        <div class="beverage-item-image" style="background-image: url('{{orderBeverage.beverage.category.categoryImage}}') ;"> </div>
+        
+        <div class="beverage-item-id ms-3 me-3"> {{orderBeverage.beverage.beverageId}}</div>
+        <div class="beverage-item-name ms-5 me-5"> {{orderBeverage.beverage.category.categoryName}}</div>
+  
+        <div *ngIf="orderBeverage.beverage.beverageSize == 1" class="beverage-item-size">Size S</div>
+        <div *ngIf="orderBeverage.beverage.beverageSize == 2" class="beverage-item-size">Size M</div>
+        <div *ngIf="orderBeverage.beverage.beverageSize == 3" class="beverage-item-size">Size L</div>
+  
+        <div class="beverage-item-price">{{orderBeverage.beverage.beveragePrice}}</div>
+  
+        <button type="button" class="btn-close btn-delete-beverage me-4" (click)="onRemoveBeverageFromOrder(orderBeverage)"></button>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
